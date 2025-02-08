@@ -98,9 +98,9 @@ export function SettingsPopup(props: SettingsPopupProps) {
                   onChange={(e) => setSelectedLanguage(e.target.value)}
                   className='w-full bg-black/20 text-white border border-white/10 rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-white/20 transition-all'
                 >
-                  <option value=''>All Languages</option>
+                  <option value='' style={{ background: "black" }}>All Languages</option>
                   {POPULAR_LANGUAGES.map((lang) => (
-                    <option key={lang} value={lang}>
+                    <option key={lang} value={lang} style={{ background: "black" }}>
                       {lang}
                     </option>
                   ))}
