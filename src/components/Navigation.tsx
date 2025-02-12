@@ -1,13 +1,14 @@
-import { RefreshCcw, Settings } from 'lucide-react';
+import { RefreshCw, Settings } from 'lucide-react';
 import { Logo } from './Logo';
 
 interface NavigationProps {
   onSettingsClick: () => void;
   onRefreshClick: () => void;
+  dataLoading: boolean;
 }
 
 export function Navigation(props: NavigationProps) {
-  const { onSettingsClick, onRefreshClick } = props;
+  const { onSettingsClick, onRefreshClick, dataLoading } = props;
 
   return (
     <nav className='px-4 sm:px-6 py-4 flex justify-between flex-row bg-white/5 backdrop-blur-xl border-b border-white/10 z-50'>
@@ -31,7 +32,7 @@ export function Navigation(props: NavigationProps) {
             onClick={onRefreshClick}
             className='p-2 text-white/70 hover:text-white transition-colors'
           >
-            <RefreshCcw className='w-5 h-5' />
+            <RefreshCw className={`w-5 h-5 ${dataLoading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
