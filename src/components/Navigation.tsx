@@ -4,11 +4,11 @@ import { Logo } from './Logo';
 interface NavigationProps {
   onSettingsClick: () => void;
   onRefreshClick: () => void;
-  dataLoading: boolean;
+  isDataLoading: boolean;
 }
 
 export function Navigation(props: NavigationProps) {
-  const { onSettingsClick, onRefreshClick, dataLoading } = props;
+  const { onSettingsClick, onRefreshClick, isDataLoading } = props;
 
   return (
     <nav className='px-4 sm:px-6 py-4 flex justify-between flex-row bg-white/5 backdrop-blur-xl border-b border-white/10 z-50'>
@@ -31,9 +31,9 @@ export function Navigation(props: NavigationProps) {
           <button
             onClick={onRefreshClick}
             className='p-2 text-white/70 hover:text-white transition-colors'
-            disabled={dataLoading}
+            disabled={isDataLoading}
           >
-            <RefreshCw className={`w-5 h-5 ${dataLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-5 h-5 ${isDataLoading ? 'animate-spin' : ''}`} />
           </button>
         </div>
       </div>
