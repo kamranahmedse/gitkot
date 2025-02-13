@@ -31,6 +31,7 @@ export function Navigation(props: NavigationProps) {
           <button
             onClick={onRefreshClick}
             className='p-2 text-white/70 hover:text-white transition-colors'
+            disabled={dataLoading}
           >
             <RefreshCw className={`w-5 h-5 ${dataLoading ? 'animate-spin' : ''}`} />
           </button>
