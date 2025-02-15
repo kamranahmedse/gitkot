@@ -184,32 +184,38 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         <a
           href={repository.html_url}
           target='_blank'
-          className='flex-1 bg-white/[0.05] text-white p-4 rounded-xl 
-            font-medium text-base hover:bg-white/[0.08] transition-all 
-            flex items-center justify-center gap-2 border border-white/[0.1] 
-            hover:border-white/[0.2] shadow-lg backdrop-blur-sm'
+          className='flex-1 flex items-center justify-center gap-2 p-4 
+            bg-white/5 hover:bg-white/8 
+            text-white/70 hover:text-white  
+            font-medium text-base  
+            border border-white/10 hover:border-white/20 
+            rounded-xl shadow-lg backdrop-blur-sm transition-colors group'
         >
-          <Star className='w-5 h-5' />
+          <Star className='w-5 h-5 text-white/70 group-hover:text-white transition-colors' />
           Star Repository
         </a>
+
         {navigator.share && (
           <button
-            onClick={() => {
-              navigator;
+            onClick={() =>
               navigator
                 .share({
                   title: repository.name,
                   text: repository.description,
                   url: repository.html_url,
                 })
-                .catch((error) => console.log('Error sharing:', error));
-            }}
-            className='w-14 h-14 flex items-center justify-center bg-white/[0.03] border border-white/[0.06] rounded-xl hover:bg-white/[0.06] transition-colors group'
+                .catch((error) => console.log('Error sharing:', error))
+            }
+            className='w-14 h-14 flex items-center justify-center 
+            bg-white/5 hover:bg-white/8 
+            border border-white/10 hover:border-white/20 
+            rounded-xl shadow-lg backdrop-blur-sm transition-colors group'
           >
             <Share2 className='w-5 h-5 text-white/70 group-hover:text-white transition-colors' />
           </button>
         )}
       </div>
+
     </div>
   );
 }
