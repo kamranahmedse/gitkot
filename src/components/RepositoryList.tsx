@@ -1,13 +1,14 @@
 import { RefObject } from 'react';
-import { Repository, RepositoryCard } from './RepositoryCard';
+import { Repository, RepositoryCard, TokenStatus } from './RepositoryCard';
 
 interface RepositoryListProps {
   repositories: Repository[];
   scrollContainerRef: RefObject<HTMLDivElement | null>;
+  tokenStatus: TokenStatus;
 }
 
 export function RepositoryList(props: RepositoryListProps) {
-  const { repositories, scrollContainerRef } = props;
+  const { repositories, scrollContainerRef, tokenStatus } = props;
 
   return (
     <div
@@ -20,7 +21,7 @@ export function RepositoryList(props: RepositoryListProps) {
           className='snap-start min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex items-center py-6'
         >
           <div className='w-full max-w-3xl mx-auto px-4 sm:px-6 h-full'>
-            <RepositoryCard repository={repository} />
+            <RepositoryCard repository={repository} tokenStatus={tokenStatus} />
           </div>
         </div>
       ))}

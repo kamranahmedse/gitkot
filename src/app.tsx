@@ -18,6 +18,7 @@ export function App() {
   const [selectedFeedType, setSelectedFeedType] = useState<FeedType>('random');
   const [isInitialized, setIsInitialized] = useState(false);
   const isOnline = useOnlineStatus();
+  const isTokenSaved = !!selectedToken;
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferred_language');
@@ -105,6 +106,7 @@ export function App() {
         <RepositoryList
           repositories={repositories}
           scrollContainerRef={scrollContainerRef}
+          tokenStatus={{isTokenSaved}}
         />
       )}
     </div>
