@@ -37,7 +37,7 @@ export type Repository = {
   created_at: string;
   updated_at: string;
   stargazers_count: number;
-  watchers_count: number;
+  subscribers_count: number;
   language: string;
   forks_count: number;
   topics: string[];
@@ -46,11 +46,16 @@ export type Repository = {
   [key: string]: any;
 };
 
-interface RepositoryCardProps {
-  repository: Repository;
+export type TokenStatus = {
+  isTokenSaved: boolean;
 }
 
-export function RepositoryCard({ repository }: RepositoryCardProps) {
+interface RepositoryCardProps {
+  repository: Repository;
+  tokenStatus: TokenStatus;
+}
+
+export function RepositoryCard({ repository, tokenStatus }: RepositoryCardProps) {
   const getLanguageColor = () => {
     const colors: { [key: string]: string } = {
       JavaScript: 'bg-yellow-300/80',
@@ -147,7 +152,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       </div>
 
       <div className='bg-gradient-to-r from-white/[0.03] to-white/[0.02] rounded-2xl p-3 backdrop-blur-xl border border-white/[0.06] shadow-xl'>
-        <div className='grid grid-cols-3 divide-x divide-white/[0.06]'>
+        <div className='grid grid-flow-col auto-cols-auto divide-x divide-white/[0.06]'>
           <div className='flex flex-col items-center justify-center p-2'>
             <Star className='w-4 h-4 text-white/50 mb-1' />
             <div className='text-xl font-medium text-white'>
@@ -168,15 +173,15 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
             </div>
           </div>
 
-          <div className='flex flex-col items-center justify-center p-2'>
+          {tokenStatus.isTokenSaved && <div className='flex flex-col items-center justify-center p-2'>
             <GitPullRequest className='w-4 h-4 text-white/50 mb-1' />
             <div className='text-xl font-medium text-white'>
-              {shortNumber(repository.watchers_count)}
+              {shortNumber(repository.subscribers_count)}
             </div>
             <div className='text-[0.65rem] text-white/40 font-medium uppercase tracking-wider'>
               Watchers
             </div>
-          </div>
+          </div>}
         </div>
       </div>
 

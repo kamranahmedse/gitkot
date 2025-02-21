@@ -76,6 +76,7 @@ export async function fetchRepositoriesPage(
   const query = buildSearchQuery(criteria);
   const isNewFeed = criteria.created !== undefined;
   const sortParam = isNewFeed ? 'created' : 'stars';
+  const savedToken = localStorage.getItem('github_token');
   const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(
     query
   )}&sort=${sortParam}&order=desc&page=${page}&per_page=${PER_PAGE}`;
@@ -113,5 +114,47 @@ export async function fetchRepositoriesPage(
     throw new Error('Failed to fetch repositories');
   }
 
-  return response.json();
+  const data = await response.json();
+
+  if(savedToken){
+
+    // Fetch subscribers_count for each repository
+    const repositoriesWithSubscribers = await Promise.all(
+      data.items.map(async (repo: any) => {
+        const detailsResponse = await fetch(
+          repo.url,
+          token
+            ? {
+                headers: {
+                  Authorization: `token ${token}`,
+                },
+              }
+            : undefined
+        );
+  
+        if (!detailsResponse.ok) {
+          // If fetching details fails, continue without subscribers_count
+          return {
+            ...repo,
+            subscribers_count: null,
+          };
+        }
+  
+        const details = await detailsResponse.json();
+  
+        return {
+          ...repo,
+          subscribers_count: details.subscribers_count || 0,
+        };
+      })
+    );
+  
+    // Return the modified response with subscribers_count
+    return {
+      ...data,
+      items: repositoriesWithSubscribers,
+    };
+  }
+  
+  return data;
 }
